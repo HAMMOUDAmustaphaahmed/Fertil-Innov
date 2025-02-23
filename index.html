@@ -29,7 +29,7 @@
 
 
   <!-- ***** Header Area Start ***** -->
-  <header class="header-area header-sticky" style="background-color: #b9be8935;">
+  <header class="header-area header-sticky" style="background-color: #c2b280bd;">
       <div class="container">
           <div class="row">
               <div class="col-12">
@@ -96,7 +96,7 @@
 <style>
   
 </style>
-  <section class="services">
+  <section class="services" id="services">
     <div class="container">
       <div class="row">
         <div class="col-lg-12">
@@ -447,7 +447,7 @@
               </div>
             </div>
             <div class="item">
-              <img src="assets/images/cours4.png" alt="">
+              <img src="assets/images/a1.jpg" alt="">
               <div class="down-content">
                 <h4>Aenean molestie quis libero gravida</h4>
                 <div class="info">
@@ -469,7 +469,7 @@
               </div>
             </div>
             <div class="item">
-              <img src="assets/images/cours5 1.jpg" alt="">
+              <img src="assets/images/aaa.jpg" alt="">
               <div class="down-content">
                 <h4>Lorem ipsum dolor sit amet adipiscing elit</h4>
                 <div class="info">
@@ -513,7 +513,7 @@
               </div>
             </div>
             <div class="item">
-              <img src="assets/images/cours7.jpg" alt="">
+              <img src="assets/images/bbb.jpg" alt="">
               <div class="down-content">
                 <h4>Web Design Templates at your finger tips</h4>
                 <div class="info">
@@ -579,7 +579,7 @@
               </div>
             </div>
             <div class="item">
-              <img src="assets/images/cours10.jpg" alt="">
+              <img src="assets/images/img3.jpeg" alt="">
               <div class="down-content">
                 <h4>Download Free CSS Layouts for your business</h4>
                 <div class="info">
@@ -601,7 +601,7 @@
               </div>
             </div>
             <div class="item">
-              <img src="assets/images/cours11.jpg" alt="">
+              <img src="assets/images/a3.jpeg" alt="">
               <div class="down-content">
                 <h4>Morbi in libero blandit lectus cursus</h4>
                 <div class="info">
@@ -623,7 +623,7 @@
               </div>
             </div>
             <div class="item">
-              <img src="assets/images/course-04.jpg" alt="">
+              <img src="assets/images/abab.webp  " alt="">
               <div class="down-content">
                 <h4>Curabitur molestie dignissim purus</h4>
                 <div class="info">
@@ -693,9 +693,10 @@
           </div>
         </div> 
         <div class="col-lg-6 align-self-center">
-          <div class="video">
+          <div class="video" id="video">
             <a  target="_blank"><img  alt=""></a>
           </div>
+          
         </div>
       </div>
     </div>
@@ -1353,160 +1354,52 @@ document.querySelectorAll('.flip-container').forEach((container, index) => {
     </script>
 </body>
 
+<div class="loader">
+  <img src="assets/images/giphy.gif" alt="Loading...">
+</div>
+
+<!-- Votre contenu normal ici -->
+<div class="content">
+  <h1>Votre site</h1>
+</div>
 <style>
-        :root {
-            --rotate: -26deg;
-            --unit: 1vmin;
-            --zoom: 60;
-            --workspace-min: 768;
-            --upx: calc(var(--zoom) * (var(--unit) / var(--workspace-min)));
-            --animation-speed: 1;
-            --helix-duration: 0.5s;
-            --helix-iteration-factor: 0.05s;
-            --dna-max-height: calc(140 * var(--upx));
-            --dna-nitrogenous-base-width: calc(6 * var(--upx));
-            --dna-nitrogenous-base-margin: calc(8 * var(--upx));
-            --dna-sugar-diameter: calc(15 * var(--upx));
-            --dna-sugar-border-size: calc(6 * var(--upx));
-            --color-background: rgb(84, 126, 77);
-            --color-sugar: #f2f1d5;
-            --color-A: #ffba36;
-            --color-T: #26f826;
-            --color-C: #439AD9;
-            --color-G: #E96451;
-        }
+  /* Loader plein écran avec fond #666 */
+  .loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+  45deg,
+  #598536 15%,    /* Vert olive */
+  #C2B280, 
+  #4e321a 85%
+);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    transition: opacity 0.3s;
+  }
 
-        @media (orientation: portrait) {
-            :root {
-                --rotate: -58deg;
-            }
-        }
+  /* Taille du GIF (ajustez selon vos besoins) */
+  .loader img {
+    width: 100px;
+    height: 100px;
+  }
 
-        
-
-        .loader-container-dna {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--color-background);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-            transition: opacity 0.5s;
-        }
-
-        .wrapper-dna {
-            transform: rotate(var(--rotate));
-            transform-origin: 50% 50%;
-        }
-
-        .dna {
-            display: flex;
-            align-items: center;
-            position: relative;
-            height: var(--dna-max-height);
-        }
-
-        .dna > div {
-            font-size: 0;
-            position: relative;
-            width: var(--dna-nitrogenous-base-width);
-            height: 0;
-            background: linear-gradient(0deg, var(--color-G) 50%, var(--color-C) 50%);
-            margin: 0 var(--dna-nitrogenous-base-margin);
-            animation: 
-                double-helix 
-                ease 
-                calc(var(--helix-duration) / var(--animation-speed)) 
-                calc((var(--i) * var(--helix-iteration-factor)) / var(--animation-speed)) 
-                alternate 
-                infinite;
-        }
-
-        .dna > div:nth-child(2n) {
-            background: linear-gradient(0deg, var(--color-A) 50%, var(--color-T) 50%);
-        }
-
-        @keyframes double-helix {
-            to { height: var(--dna-max-height); }
-        }
-
-        .dna > div::before, 
-        .dna > div::after {
-            content: "";
-            position: absolute;
-            left: 50%;
-            width: var(--dna-sugar-diameter);
-            height: var(--dna-sugar-diameter);
-            border-radius: 50%;
-            background: var(--color-sugar);
-            border: var(--dna-sugar-border-size) solid var(--color-background);
-            box-sizing: content-box;
-        }
-
-        .dna > div::before {
-            top: 0;
-            transform: translate(-50%, -50%);
-        }
-
-        .dna > div::after {
-            bottom: 0;
-            transform: translate(-50%, 50%);
-        }
-    </style>
-
-    <div class="loader-container-dna" id="loader-dna">
-        <div class="wrapper-dna">
-            <div class="dna">
-                <!-- Les éléments générés par Pug -->
-                <div style="--i: 0"></div>
-                <div style="--i: 1"></div>
-                <div style="--i: 2"></div>
-                <div style="--i: 3"></div>
-                <div style="--i: 4"></div>
-                <div style="--i: 5"></div>
-                <div style="--i: 6"></div>
-                <div style="--i: 7"></div>
-                <div style="--i: 8"></div>
-                <div style="--i: 9"></div>
-                <div style="--i: 10"></div>
-                <div style="--i: 11"></div>
-                <div style="--i: 12"></div>
-                <div style="--i: 13"></div>
-                <div style="--i: 14"></div>
-                <div style="--i: 15"></div>
-                <div style="--i: 16"></div>
-                <div style="--i: 17"></div>
-                <div style="--i: 18"></div>
-                <div style="--i: 19"></div>
-                <div style="--i: 20"></div>
-                <div style="--i: 21"></div>
-                <div style="--i: 22"></div>
-                <div style="--i: 23"></div>
-                <div style="--i: 24"></div>
-                
-
-                <!-- ... Répéter pour les 24 éléments ... -->
-            </div>
-        </div>
-    </div>
-
-    <!-- Le contenu principal de votre site -->
-    <div id="content" style="display: none;">
-        <!-- Votre contenu ici -->
-    </div>
-
-    <script>
-        // Masquer le loader après 2 secondes et afficher le contenu
-        window.addEventListener('load', function() {
-            setTimeout(function() {
-                document.getElementById('loader-dna').style.display = 'none';
-                document.getElementById('content').style.display = 'block';
-                document.body.style.overflow = 'auto';
-            }, 2000);
-        });
-    </script>
+  /* Classe pour cacher le loader */
+  .hide {
+    display: none !important;
+  }
+</style>
+<script>
+  // Cacher le loader après 2 secondes
+  window.addEventListener('load', function() {
+    setTimeout(function() {
+      document.querySelector('.loader').classList.add('hide');
+    }, 1800);
+  });
+</script>
 </html>

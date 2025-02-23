@@ -1051,18 +1051,20 @@ apply now
 */
 
 section.apply-now {
-  background-image: url(../images/apply-bg.jpg);
+  background-image: url(../images/apply.png) ;
   background-position: center center;
   background-attachment: fixed;
   background-repeat: no-repeat;
   background-size: cover;
+  
   padding: 140px 0px;
 }
 
 section.apply-now .item {
-  background-color: rgba(250,250,250,0.15);
+  background-color: #c2b280d3;
   padding: 40px;
   margin-bottom: 30px;
+  border-radius: 15px;
 }
 
 section.apply-now .item h3 {
