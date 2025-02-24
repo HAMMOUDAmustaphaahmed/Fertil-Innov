@@ -1350,12 +1350,12 @@ section.our-facts .video {
   margin-bottom: 10px;
   margin-left: 50px;
   width: 500px;
-  height: 500px;
-  background-image: url(../images/carte_sites.png);
+  height: 520px;
+ 
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
-  background-color: #ffffffe6;
+  background-color: #f3f3f3f3;
   border-radius: 25px;
   
 }
