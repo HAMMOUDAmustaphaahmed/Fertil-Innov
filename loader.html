@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .loader-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, 
+                #a8d5e2 0%,
+                #b8dfe8 20%,
+                #c5e5ed 40%,
+                #d4b896 60%,
+                #8b6f47 75%,
+                #5d4a2f 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            transition: opacity 0.8s;
+        }
+
+        /* Nuages réalistes */
+        .clouds {
+            position: absolute;
+            width: 100%;
+            height: 60%;
+            top: 0;
+            overflow: hidden;
+        }
+
+        .cloud {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 100px;
+            filter: blur(20px);
+            animation: driftCloud 40s linear infinite;
+        }
+
+        .cloud1 {
+            width: 200px;
+            height: 60px;
+            top: 10%;
+            left: -200px;
+            animation-delay: 0s;
+        }
+
+        .cloud2 {
+            width: 150px;
+            height: 50px;
+            top: 25%;
+            left: -150px;
+            animation-delay: 15s;
+        }
+
+        @keyframes driftCloud {
+            from { transform: translateX(0); }
+            to { transform: translateX(calc(100vw + 200px)); }
+        }
+
+        /* Sol ultra-réaliste */
+        .soil {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 40%;
+            background: 
+                radial-gradient(circle at 30% 20%, #6b5233 0%, transparent 15%),
+                radial-gradient(circle at 70% 40%, #5a4128 0%, transparent 12%),
+                radial-gradient(circle at 50% 60%, #4d3920 0%, transparent 10%),
+                linear-gradient(to bottom, #7a5c3e 0%, #5d4630 50%, #3d2817 100%);
+            box-shadow: inset 0 10px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .soil::before {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(ellipse at 15% 25%, rgba(139, 90, 43, 0.4) 2px, transparent 2px),
+                radial-gradient(ellipse at 45% 35%, rgba(101, 67, 33, 0.3) 1.5px, transparent 1.5px),
+                radial-gradient(ellipse at 75% 45%, rgba(92, 64, 51, 0.5) 2.5px, transparent 2.5px),
+                radial-gradient(ellipse at 25% 65%, rgba(80, 54, 30, 0.35) 1.8px, transparent 1.8px),
+                radial-gradient(ellipse at 85% 75%, rgba(70, 48, 28, 0.4) 2.2px, transparent 2.2px);
+            background-size: 80px 80px, 120px 120px, 100px 100px, 90px 90px, 110px 110px;
+            background-position: 0 0, 40px 40px, 20px 60px, 70px 20px, 50px 80px;
+        }
+
+        .soil-surface {
+            position: absolute;
+            top: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(to right, 
+                transparent 0%, 
+                rgba(61, 40, 23, 0.8) 20%, 
+                rgba(61, 40, 23, 1) 50%, 
+                rgba(61, 40, 23, 0.8) 80%, 
+                transparent 100%);
+            box-shadow: 
+                0 -3px 15px rgba(0, 0, 0, 0.4),
+                0 1px 3px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Container de la plante */
+        .plant-container {
+            position: absolute;
+            bottom: 40%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 300px;
+            height: 450px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+            filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.3));
+        }
+
+        /* Racines ultra-détaillées */
+        .roots {
+            position: absolute;
+            bottom: -120px;
+            width: 100%;
+            height: 140px;
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .root {
+            width: 4px;
+            height: 0;
+            background: linear-gradient(to bottom, 
+                #8b6f47 0%, 
+                #6b5233 40%, 
+                #4d3920 70%, 
+                rgba(61, 40, 23, 0.5) 100%);
+            border-radius: 3px;
+            position: relative;
+            animation: growRoot 2s ease-out forwards;
+            transform-origin: top;
+            box-shadow: 
+                inset -1px 0 2px rgba(0, 0, 0, 0.4),
+                2px 0 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .root::after {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                rgba(255, 255, 255, 0.1) 50%, 
+                transparent 100%);
+        }
+
+        .root:nth-child(1) { transform: rotate(-35deg); animation-delay: 0.2s; width: 3.5px; }
+        .root:nth-child(2) { transform: rotate(-22deg); animation-delay: 0.3s; width: 4px; }
+        .root:nth-child(3) { transform: rotate(-12deg); animation-delay: 0.15s; width: 4.5px; }
+        .root:nth-child(4) { transform: rotate(0deg); animation-delay: 0.1s; width: 5px; }
+        .root:nth-child(5) { transform: rotate(12deg); animation-delay: 0.35s; width: 4.5px; }
+        .root:nth-child(6) { transform: rotate(22deg); animation-delay: 0.25s; width: 4px; }
+        .root:nth-child(7) { transform: rotate(35deg); animation-delay: 0.2s; width: 3.5px; }
+
+        @keyframes growRoot {
+            from { height: 0; }
+            to { height: 120px; }
+        }
+
+        /* Tige ultra-réaliste avec texture */
+        .stem {
+            width: 12px;
+            height: 0;
+            background: linear-gradient(to right,
+                #4a7c4e 0%,
+                #5fb85f 50%,
+                #4a7c4e 100%);
+            border-radius: 6px;
+            box-shadow: 
+                inset -3px 0 5px rgba(0, 0, 0, 0.3),
+                inset 2px 0 5px rgba(255, 255, 255, 0.2),
+                2px 0 8px rgba(0, 0, 0, 0.2);
+            animation: growStem 2.5s ease-out 0.5s forwards;
+            position: relative;
+        }
+
+        .stem::before {
+            content: "";
+            position: absolute;
+            width: 2px;
+            height: 100%;
+            left: 3px;
+            background: linear-gradient(to bottom,
+                rgba(255, 255, 255, 0.3) 0%,
+                transparent 50%);
+            border-radius: 1px;
+        }
+
+        @keyframes growStem {
+            from { height: 0; }
+            to { height: 320px; }
+        }
+
+        /* Feuilles ultra-réalistes */
+        .leaves {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+        }
+
+        .leaf {
+            position: absolute;
+            width: 70px;
+            height: 35px;
+            background: radial-gradient(ellipse at 30% 30%,
+                #7bc67b 0%,
+                #5fb85f 40%,
+                #4a9c4a 80%,
+                #3d8b3d 100%);
+            border-radius: 0 80% 80% 0;
+            opacity: 0;
+            transform-origin: left center;
+            box-shadow: 
+                inset -5px -5px 10px rgba(0, 0, 0, 0.25),
+                inset 3px 3px 8px rgba(255, 255, 255, 0.2),
+                3px 3px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Nervures de la feuille */
+        .leaf::before {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(to right,
+                #3d8b3d 0%,
+                #5fb85f 50%,
+                transparent 100%);
+            top: 50%;
+            left: 0;
+            transform: translateY(-50%);
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+        }
+
+        .leaf::after {
+            content: "";
+            position: absolute;
+            width: 50%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background: linear-gradient(135deg,
+                transparent 0%,
+                rgba(255, 255, 255, 0.1) 30%,
+                transparent 70%);
+        }
+
+        /* Feuilles gauche */
+        .leaf-left {
+            left: 0px;
+            animation: growLeafLeft 0.8s ease-out forwards;
+        }
+
+        .leaf-left-1 { top: 25%; animation-delay: 1.5s; }
+        .leaf-left-2 { top: 45%; animation-delay: 2s; width: 80px; height: 40px; }
+        .leaf-left-3 { top: 65%; animation-delay: 2.5s; width: 75px; height: 37px; }
+
+        @keyframes growLeafLeft {
+            0% {
+                opacity: 0;
+                transform: scale(0) rotate(0deg);
+            }
+            60% {
+                transform: scale(1.1) rotate(-48deg);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1) rotate(-45deg);
+            }
+        }
+
+        /* Feuilles droite */
+        .leaf-right {
+            right: -70px;
+            transform: scaleX(-1);
+            animation: growLeafRight 0.8s ease-out forwards;
+        }
+
+        .leaf-right-1 { top: 15%; animation-delay: 1.8s; width: 75px; height: 37px; }
+        .leaf-right-2 { top: 35%; animation-delay: 2.3s; width: 80px; height: 40px; }
+        .leaf-right-3 { top: 55%; animation-delay: 2.8s; }
+
+        @keyframes growLeafRight {
+            0% {
+                opacity: 0;
+                transform: scaleX(-1) scale(0) rotate(0deg);
+            }
+            60% {
+                transform: scaleX(-1) scale(1.1) rotate(-48deg);
+            }
+            100% {
+                opacity: 1;
+                transform: scaleX(-1) scale(1) rotate(-45deg);
+            }
+        }
+
+        /* Fleur ultra-réaliste et équilibrée */
+        .flower {
+            position: absolute;
+            top: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            animation: bloomFlower 1.2s ease-out 3s forwards;
+            width: 80px;
+            height: 80px;
+        }
+
+        .petals-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .petal {
+            position: absolute;
+            width: 28px;
+            height: 36px;
+            background: radial-gradient(ellipse at 40% 30%,
+                #ffb3d9 0%,
+                #ff8cb5 40%,
+                #ff6b9d 70%,
+                #e64980 100%);
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            top: 50%;
+            left: 50%;
+            transform-origin: center center;
+            box-shadow: 
+                inset -3px -3px 8px rgba(0, 0, 0, 0.2),
+                inset 2px 2px 6px rgba(255, 255, 255, 0.4),
+                0 4px 8px rgba(0, 0, 0, 0.25);
+        }
+
+        .petal::after {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg,
+                rgba(255, 255, 255, 0.4) 0%,
+                transparent 60%);
+            border-radius: inherit;
+        }
+
+        .petal:nth-child(1) { 
+            transform: translate(-50%, -50%) rotate(0deg) translateY(-22px);
+        }
+        .petal:nth-child(2) { 
+            transform: translate(-50%, -50%) rotate(72deg) translateY(-22px);
+        }
+        .petal:nth-child(3) { 
+            transform: translate(-50%, -50%) rotate(144deg) translateY(-22px);
+        }
+        .petal:nth-child(4) { 
+            transform: translate(-50%, -50%) rotate(216deg) translateY(-22px);
+        }
+        .petal:nth-child(5) { 
+            transform: translate(-50%, -50%) rotate(288deg) translateY(-22px);
+        }
+
+        .flower-center {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: radial-gradient(circle at 35% 35%,
+                #fff4a3 0%,
+                #ffd700 40%,
+                #ffb700 100%);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: 
+                inset -2px -2px 4px rgba(0, 0, 0, 0.3),
+                inset 2px 2px 4px rgba(255, 255, 255, 0.6),
+                0 0 15px rgba(255, 215, 0, 0.6),
+                0 4px 8px rgba(0, 0, 0, 0.2);
+            z-index: 10;
+        }
+
+        .flower-center::before {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 30% 30%,
+                rgba(255, 255, 255, 0.6) 0%,
+                transparent 60%);
+            border-radius: 50%;
+        }
+
+        /* Étamines */
+        .stamen {
+            position: absolute;
+            width: 2px;
+            height: 8px;
+            background: linear-gradient(to bottom, #ffb700, #ff8800);
+            top: 50%;
+            left: 50%;
+            transform-origin: bottom center;
+            border-radius: 1px;
+        }
+
+        .stamen::after {
+            content: "";
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: #ff6600;
+            border-radius: 50%;
+            top: -2px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .stamen:nth-child(1) { transform: translate(-50%, -50%) rotate(0deg) translateY(-8px); }
+        .stamen:nth-child(2) { transform: translate(-50%, -50%) rotate(60deg) translateY(-8px); }
+        .stamen:nth-child(3) { transform: translate(-50%, -50%) rotate(120deg) translateY(-8px); }
+        .stamen:nth-child(4) { transform: translate(-50%, -50%) rotate(180deg) translateY(-8px); }
+        .stamen:nth-child(5) { transform: translate(-50%, -50%) rotate(240deg) translateY(-8px); }
+        .stamen:nth-child(6) { transform: translate(-50%, -50%) rotate(300deg) translateY(-8px); }
+
+        @keyframes bloomFlower {
+            0% {
+                opacity: 0;
+                transform: translateX(-50%) scale(0) rotate(-45deg);
+            }
+            60% {
+                transform: translateX(-50%) scale(1.1) rotate(5deg);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(-50%) scale(1) rotate(0deg);
+            }
+        }
+
+        /* Rosée sur les feuilles */
+        .dewdrop {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: radial-gradient(circle at 30% 30%,
+                rgba(255, 255, 255, 0.9) 0%,
+                rgba(200, 230, 255, 0.7) 50%,
+                rgba(150, 200, 255, 0.5) 100%);
+            border-radius: 50%;
+            box-shadow: 
+                inset -1px -1px 2px rgba(0, 0, 0, 0.2),
+                0 2px 4px rgba(0, 0, 0, 0.3);
+            animation: dewShine 3s ease-in-out infinite;
+        }
+
+        @keyframes dewShine {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
+        }
+
+        /* Texte de chargement */
+        .loading-text {
+            position: absolute;
+            bottom: 12%;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #2d5016;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 24px;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-shadow: 
+                0 2px 4px rgba(255, 255, 255, 0.8),
+                0 4px 8px rgba(0, 0, 0, 0.2);
+            animation: textPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes textPulse {
+            0%, 100% { opacity: 0.7; transform: translateX(-50%) scale(1); }
+            50% { opacity: 1; transform: translateX(-50%) scale(1.02); }
+        }
+
+        /* Papillon décoratif */
+        .butterfly {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            top: 30%;
+            left: 20%;
+            opacity: 0;
+            animation: butterflyFly 8s ease-in-out 3.5s infinite;
+        }
+
+        .wing {
+            position: absolute;
+            width: 15px;
+            height: 20px;
+            background: radial-gradient(ellipse at 30% 30%,
+                #ffd700 0%,
+                #ffb347 50%,
+                #ff8c42 100%);
+            border-radius: 50% 50% 50% 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .wing-left {
+            left: 0;
+            transform-origin: right center;
+            animation: flapWing 0.3s ease-in-out infinite;
+        }
+
+        .wing-right {
+            right: 0;
+            transform: scaleX(-1);
+            transform-origin: left center;
+            animation: flapWing 0.3s ease-in-out infinite;
+        }
+
+        @keyframes flapWing {
+            0%, 100% { transform: rotateY(0deg); }
+            50% { transform: rotateY(60deg); }
+        }
+
+        @keyframes butterflyFly {
+            0% { 
+                opacity: 0;
+                top: 30%;
+                left: 20%;
+            }
+            10%, 90% {
+                opacity: 1;
+            }
+            25% {
+                top: 25%;
+                left: 40%;
+            }
+            50% {
+                top: 20%;
+                left: 60%;
+            }
+            75% {
+                top: 25%;
+                left: 80%;
+            }
+            100% {
+                opacity: 0;
+                top: 30%;
+                left: 100%;
+            }
+        }
+
+        /* Contenu principal */
+        #content {
+            padding: 60px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+
+        #content h1 {
+            color: #2d5016;
+            text-align: center;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="loader-container" id="loader">
+        <!-- Nuages -->
+        <div class="clouds">
+            <div class="cloud cloud1"></div>
+            <div class="cloud cloud2"></div>
+        </div>
+
+        <!-- Papillon -->
+        <div class="butterfly">
+            <div class="wing wing-left"></div>
+            <div class="wing wing-right"></div>
+        </div>
+
+        <!-- Sol -->
+        <div class="soil">
+            <div class="soil-surface"></div>
+        </div>
+
+        <!-- Plante -->
+        <div class="plant-container">
+            <!-- Racines -->
+            <div class="roots">
+                <div class="root"></div>
+                <div class="root"></div>
+                <div class="root"></div>
+                <div class="root"></div>
+                <div class="root"></div>
+                <div class="root"></div>
+                <div class="root"></div>
+            </div>
+
+            <!-- Tige -->
+            <div class="stem">
+                <!-- Feuilles -->
+                <div class="leaves">
+                    <div class="leaf leaf-left leaf-left-1">
+                        <span class="dewdrop" style="top: 60%; left: 40%;"></span>
+                    </div>
+                    <div class="leaf leaf-left leaf-left-2">
+                        <span class="dewdrop" style="top: 50%; left: 35%;"></span>
+                    </div>
+                    <div class="leaf leaf-left leaf-left-3"></div>
+                    <div class="leaf leaf-right leaf-right-1"></div>
+                    <div class="leaf leaf-right leaf-right-2">
+                        <span class="dewdrop" style="top: 55%; left: 65%;"></span>
+                    </div>
+                    <div class="leaf leaf-right leaf-right-3"></div>
+                </div>
+
+                <!-- Fleur équilibrée -->
+                <div class="flower">
+                    <div class="petals-container">
+                        <div class="petal"></div>
+                        <div class="petal"></div>
+                        <div class="petal"></div>
+                        <div class="petal"></div>
+                        <div class="petal"></div>
+                    </div>
+                    <div class="stamen"></div>
+                    <div class="stamen"></div>
+                    <div class="stamen"></div>
+                    <div class="stamen"></div>
+                    <div class="stamen"></div>
+                    <div class="stamen"></div>
+                    <div class="flower-center"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="loading-text">REMÉDIATION EN COURS...</div>
+    </div>
+
+    
+
+    <script>
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                const loader = document.getElementById('loader');
+                loader.style.opacity = '0';
+                setTimeout(function() {
+                    loader.style.display = 'none';
+                    document.getElementById('content').style.display = 'block';
+                    document.body.style.overflow = 'auto';
+                }, 800);
+            }, 4500);
+        });
+    </script>
+</body>
+</html>
