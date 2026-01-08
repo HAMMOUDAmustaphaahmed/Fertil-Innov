@@ -88,10 +88,9 @@
 /* Header scrolled - seulement changer le fond, pas les dimensions */
 .header-area-modern.scrolled {
     background: linear-gradient(135deg, 
-    rgba(129, 199, 112, 0),  
-    rgba(182, 174, 162, 0)    
+    rgba(129, 199, 112, 0.829),  
+    rgba(182, 174, 162, 0.747)    
   ) !important;
-  backdrop-filter: blur(5px);
   /* Garder la même hauteur */
   height: 80px;
   padding: 15px 0;
@@ -295,7 +294,6 @@
     opacity: 0;
     visibility: hidden;
     transform: translateY(-20px);
-    transition: opacity 0.3s ease, transform 0.3s ease;
     max-height: calc(100vh - 80px);
     overflow-y: auto;
     z-index: 9997;
@@ -387,7 +385,6 @@
           <!-- Navigation améliorée avec dropdown -->
           <ul class="nav" id="mainNav">
             <li><a href="#top" class="active">Accueil</a></li>
-            
             <!-- Services avec dropdown -->
             <li class="dropdown">
               <a href="#services">Nos Services <i class="fas fa-chevron-down"></i></a>
@@ -401,6 +398,8 @@
             </li>
             
             <li><a href="#meetings">Nos Activités</a></li>
+            <li><a href="#expertise">Notre Expertise</a></li>
+            
             <li><a href="#faq-scientifique-3d">FAQ</a></li>
             <li><a href="#formations">Formations</a></li>
             <li><a href="#partenaires">Partenaires</a></li>
@@ -1591,7 +1590,7 @@ document.addEventListener('DOMContentLoaded', function() {
         </div>
         <div class="down-content">
           <h4>Fertilité Des Sols</h4>
-          <p>Suspendisse tempor mauris a sem elementum bibendum. Praesent facilisis massa non vestibulum.</p>
+          <p>Nous restaurons et optimisons la fertilité des sols en renforçant leur vie microbienne pour une production durable et performante.</p>
         </div>
       </div>
       
@@ -1611,7 +1610,7 @@ document.addEventListener('DOMContentLoaded', function() {
         </div>
         <div class="down-content">
           <h4>Développement Durable</h4>
-          <p>Suspendisse tempor mauris a sem elementum bibendum. Praesent facilisis massa non vestibulum.</p>
+          <p>Nous intégrons les principes du développement durable pour restaurer les sols, préserver les ressources naturelles et garantir des écosystèmes résilients sur le long terme.</p>
         </div>
       </div>
       
@@ -1633,6 +1632,17 @@ document.addEventListener('DOMContentLoaded', function() {
           <h4>Analyses</h4>
           <p>On vous propose un ensemble de services en lien avec l'agriculture durable et les produits de biocontrôle</p>
         </div>
+        
+      </div>
+      <div class="service-card-3d">
+        <div class="icon">
+          <img src="assets/images/formation.svg" alt="Icône analyses des sols - Fertil'Innov Environnement">
+        </div>
+        <div class="down-content">
+          <h4>Formations</h4>
+          <p>Nos formations sont disponibles en présentiel, en ligne ou sur site, selon vos besoins.</p>
+        </div>
+        
       </div>
     </div>
   </div>
@@ -2724,8 +2734,13 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 <!-- SECTION STATISTIQUES MODERNISÉE -->
-<section class="apply-now-3d">
+<section class="apply-now-3d" id="expertise">
   <div class="container">
+    <div class="col-lg-12">
+            <h2 class="faq-title-3d">
+            Notre Expertise Scientifique
+            <div class="title-underline"></div>
+    </div>
     <div class="row">
       <div class="col-lg-6">
         <div class="stat-box-3d" data-tilt>
@@ -4027,7 +4042,7 @@ function toggleAnswer(element) {
           <div class="mode-card">
             <div class="mode-icon">👨‍🏫</div>
             <h4>Présentiel</h4>
-            <p>Sessions en groupe dans nos centres de formation à Paris, Lyon et Bordeaux</p>
+            <p>Sessions en groupe dans nos centres de formation.</p>
           </div>
           
           <div class="mode-card">
@@ -10689,8 +10704,13 @@ document.addEventListener('DOMContentLoaded', function() {
             </div>
             <div class="contact-info-content">
               <h6>Adresse</h6>
-              <span>123 Rue de l'Environnement<br>75000 Paris, France</span>
-            </div>
+              <span><p><strong>Adresse du siège :</strong><br>
+<a href="https://maps.google.com/?q=460+Rue+Louis+Pasteur+34790+Grabels+France" class="address-link">460 Rue Louis Pasteur, 34790 Grabels</a></p></span>
+<span>
+  <p><strong>Adresse du laboratoire :</strong><br>
+<a href="https://maps.google.com/?q=2+Rue+Louis+Bréguet+34830+Jacou+France" class="address-link">2 Rue Louis Bréguet, 34830 Jacou</a></p>
+</span>            
+</div>
           </li>
           
           <li class="contact-info-item">
@@ -10701,6 +10721,19 @@ document.addEventListener('DOMContentLoaded', function() {
               <h6>Site Web</h6>
               <span>www.fertilinnov-environnement.fr</span>
             </div>
+            
+          </li>
+          <li class="contact-info-item">
+            <div class="contact-info-icon">
+              <i >          <a href="https://www.linkedin.com/company/fertil-innov-environnement/posts/?feedView=all" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+</i>
+            </div>
+            <div class="contact-info-content">
+              <h6 >Linkedin</h6>
+              
+              <span >linkedin.com/fertil-innov-environnement</span>
+            </div>
+            
           </li>
         </ul>
       </div>
@@ -11012,9 +11045,7 @@ document.addEventListener('DOMContentLoaded', function() {
         <p class="footer-description">
           Fertil'Innov Environnement est une JEI spécialisée en ingénierie écologique pour la valorisation durable des microorganismes des sols.
         </p>
-        <div class="footer-social">
-          <a href="https://www.linkedin.com/company/fertil-innov-environnement/posts/?feedView=all" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-        </div>
+        
       </div>
       
       <!-- Colonne 2 -->
