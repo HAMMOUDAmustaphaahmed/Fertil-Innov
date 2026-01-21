@@ -10739,7 +10739,116 @@ document.addEventListener('DOMContentLoaded', function() {
         </ul>
       </div>
     </div>
+    <!-- Ajoutez ceci JUSTE AVANT </body> dans votre page HTML -->
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+<script>
+// ============================================
+// CONFIGURATION EMAILJS - DÉJÀ CONFIGURÉE !
+// ============================================
+
+const EMAILJS_CONFIG = {
+  serviceID: 'service_s90iqol',
+  templateID: 'template_6a4bwnj',
+  publicKey: 'SosDodBjkeVpgG-lM'
+};
+
+// ============================================
+// SCRIPT PRINCIPAL - NE RIEN MODIFIER CI-DESSOUS
+// ============================================
+
+(function() {
+  if (typeof emailjs !== 'undefined') {
+    emailjs.init(EMAILJS_CONFIG.publicKey);
+  }
+  
+  document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('contact-modern');
+    if (!form) return;
     
+    form.addEventListener('submit', function(event) {
+      event.preventDefault();
+      const submitButton = document.getElementById('form-submit-modern');
+      if (!submitButton) return;
+      
+      const originalText = submitButton.textContent;
+      submitButton.disabled = true;
+      submitButton.textContent = 'ENVOI EN COURS...';
+      submitButton.style.opacity = '0.7';
+      
+      // Données du formulaire
+      const formData = {
+        from_name: document.getElementById('name-modern')?.value || '',
+        from_email: document.getElementById('email-modern')?.value || '',
+        subject: document.getElementById('subject-modern')?.value || '',
+        phone: document.getElementById('phone-modern')?.value || 'Non renseigné',
+        message: document.getElementById('message-modern')?.value || '',
+        date_time: new Date().toLocaleDateString('fr-FR', {
+          weekday: 'long', year: 'numeric', month: 'long', 
+          day: 'numeric', hour: '2-digit', minute: '2-digit'
+        }),
+        to_email: 'ahmedmustapha.hammouda@gmail.com',
+        to_name: 'Ahmed Mustapha',
+        site_name: 'Fertilinnov Environnement',
+        page_url: window.location.href
+      };
+      
+      // Validation
+      if (!formData.from_name || !formData.from_email || 
+          !formData.subject || !formData.message) {
+        showNotification('❌ Tous les champs obligatoires (*) doivent être remplis', 'error');
+        submitButton.disabled = false;
+        submitButton.textContent = originalText;
+        submitButton.style.opacity = '1';
+        return;
+      }
+      
+      // Envoi EmailJS
+      emailjs.send(EMAILJS_CONFIG.serviceID, EMAILJS_CONFIG.templateID, formData)
+        .then(function(response) {
+          showNotification('✅ Message envoyé à ahmedmustapha.hammouda@gmail.com', 'success');
+          form.reset();
+          submitButton.style.background = 'linear-gradient(135deg, #11998e 0%, #38ef7d 100%)';
+          setTimeout(() => { submitButton.style.background = ''; }, 2000);
+        }, function(error) {
+          showNotification('❌ Erreur d\'envoi. Veuillez réessayer.', 'error');
+        }).finally(function() {
+          submitButton.disabled = false;
+          submitButton.textContent = originalText;
+          submitButton.style.opacity = '1';
+        });
+    });
+    
+    function showNotification(message, type) {
+      const old = document.querySelectorAll('.custom-notif');
+      old.forEach(n => n.remove());
+      
+      const notif = document.createElement('div');
+      notif.className = 'custom-notif';
+      notif.style.cssText = `
+        position: fixed; top: 30px; right: 30px; padding: 18px 25px;
+        border-radius: 12px; color: white; font-weight: 500;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.2); transform: translateX(400px);
+        transition: transform 0.4s; z-index: 999999; font-family: 'Segoe UI', sans-serif;
+        max-width: 400px; font-size: 15px; backdrop-filter: blur(10px);
+        background: ${type === 'success' ? 
+          'linear-gradient(135deg, #11998e 0%, #38ef7d 100%)' : 
+          'linear-gradient(135deg, #eb3349 0%, #f45c43 100%)'};
+        border-left: 5px solid rgba(255,255,255,0.3);
+        display: flex; align-items: center; gap: 12px;
+      `;
+      
+      notif.innerHTML = `<span style="font-size:20px">${type === 'success' ? '✅' : '❌'}</span><span>${message}</span>`;
+      document.body.appendChild(notif);
+      
+      setTimeout(() => notif.style.transform = 'translateX(0)', 10);
+      setTimeout(() => {
+        notif.style.transform = 'translateX(400px)';
+        setTimeout(() => notif.remove(), 400);
+      }, 5000);
+    }
+  });
+})();
+</script>
     <!-- Footer modernisé -->
 <style>
 /* ===== FOOTER MODERNE ===== */
