@@ -1859,11 +1859,519 @@
 </head>
 
 <body>
-  <!-- Loader -->
-  <div class="loader" id="loader" role="status" aria-label="Chargement de la page">
-    <img src="../assets/images/giphy.gif" alt="" width="100" height="100">
-  </div>
 
+  <!-- SVG Definitions pour le dégradé du cercle -->
+<svg width="0" height="0" style="position: absolute;">
+  <defs>
+    <linearGradient id="gradientRing" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#4CAF50" />
+      <stop offset="50%" stop-color="#8BC34A" />
+      <stop offset="100%" stop-color="#CDDC39" />
+    </linearGradient>
+  </defs>
+</svg>
+<!-- Loader Fertil'Innov Style - Palette Nature -->
+<!-- Loader 5s Fixe - Universel -->
+<div class="loader" id="loader" role="status" aria-label="Chargement de la page">
+  <div class="loader-container">
+    <!-- Cercle de progression autour de la mascotte -->
+    <div class="loader-ring">
+      <svg viewBox="0 0 100 100">
+        <circle class="ring-bg" cx="50" cy="50" r="45"/>
+        <circle class="ring-progress" cx="50" cy="50" r="45"/>
+      </svg>
+    </div>
+    
+    <!-- Mascotte -->
+    <div class="loader-mascot">
+      <img src="assets/images/mascott.webp" alt="" width="100" height="100">
+    </div>
+    
+    <!-- Points de chargement animés -->
+    <div class="loader-dots">
+      <span class="dot"></span>
+      <span class="dot"></span>
+      <span class="dot"></span>
+    </div>
+    
+    <!-- Compteur de progression -->
+    <div class="loader-counter">
+      <span id="progressPercent">0</span>%
+    </div>
+    
+    <p class="loader-text">Chargement</p>
+  </div>
+  
+  <!-- Particules nature -->
+  <div class="loader-particles">
+    <span class="particle">🌿</span>
+    <span class="particle">•</span>
+    <span class="particle">🍃</span>
+    <span class="particle">•</span>
+    <span class="particle">🌱</span>
+    <span class="particle">•</span>
+  </div>
+</div>
+<style>
+  /* ============================================
+   LOADER 5S FIXE - UNIVERSEL
+   Fonctionne partout: local, GitHub Pages, hébergeur
+   ============================================ */
+
+.loader {
+  position: fixed;
+  inset: 0;
+  /* Palette blanc → vert pâle → beige */
+  background: linear-gradient(135deg, 
+    #fafbf9 0%, 
+    #f1f5ed 30%,
+    #e5ebe0 60%, 
+    #dde5d6 100%
+  );
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 99999;
+  transition: opacity 0.8s ease, visibility 0.8s ease;
+  overflow: hidden;
+}
+
+/* État caché */
+.loader.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* Conteneur principal */
+.loader-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  position: relative;
+  z-index: 2;
+}
+
+/* ============================================
+   CERCLE DE PROGRESSION SVG
+   ============================================ */
+
+.loader-ring {
+  position: absolute;
+  width: 160px;
+  height: 160px;
+  animation: ringPulse 2s ease-in-out infinite;
+}
+
+.loader-ring svg {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.ring-bg {
+  fill: none;
+  stroke: rgba(139, 195, 74, 0.15);
+  stroke-width: 4;
+}
+
+.ring-progress {
+  fill: none;
+  stroke: url(#gradientRing);
+  stroke-width: 4;
+  stroke-linecap: round;
+  stroke-dasharray: 283; /* 2 * PI * 45 */
+  stroke-dashoffset: 283;
+  animation: fillRing 5s linear forwards;
+}
+
+/* Dégradé pour le cercle */
+.loader-ring::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: conic-gradient(from 0deg, #4CAF50, #8BC34A, #CDDC39, #4CAF50);
+  border-radius: 50%;
+  opacity: 0;
+  animation: showGradient 5s linear forwards;
+  -webkit-mask: radial-gradient(transparent 62%, black 63%);
+  mask: radial-gradient(transparent 62%, black 63%);
+}
+
+/* ============================================
+   MASCOTTE
+   ============================================ */
+
+.loader-mascot {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  z-index: 3;
+  animation: mascotBreathe 2s ease-in-out infinite;
+}
+
+.loader-mascot img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 10px 25px rgba(46, 125, 50, 0.25));
+}
+
+/* ============================================
+   POINTS DE CHARGEMENT
+   ============================================ */
+
+.loader-dots {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #4CAF50, #8BC34A);
+  animation: dotWave 1.2s ease-in-out infinite;
+  box-shadow: 0 4px 10px rgba(76, 175, 80, 0.3);
+}
+
+.dot:nth-child(1) { animation-delay: 0s; }
+.dot:nth-child(2) { animation-delay: 0.2s; }
+.dot:nth-child(3) { animation-delay: 0.4s; }
+
+/* ============================================
+   COMPTEUR DE PROGRESSION
+   ============================================ */
+
+.loader-counter {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #2E7D32;
+  min-width: 60px;
+  text-align: center;
+  text-shadow: 0 2px 10px rgba(46, 125, 50, 0.2);
+}
+
+/* ============================================
+   TEXTE
+   ============================================ */
+
+.loader-text {
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #558B2F;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  position: relative;
+}
+
+/* Effet "Chargement..." animé */
+.loader-text::after {
+  content: '';
+  animation: loadingDots 1.5s steps(4, end) infinite;
+}
+
+/* ============================================
+   PARTICULES NATURE
+   ============================================ */
+
+.loader-particles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.particle {
+  position: absolute;
+  font-size: 1rem;
+  opacity: 0;
+  animation: floatUp 6s linear infinite;
+}
+
+.particle:nth-child(1) { left: 15%; animation-delay: 0s; color: #8BC34A; }
+.particle:nth-child(2) { left: 30%; animation-delay: 1s; color: #D4A574; font-size: 0.6rem; }
+.particle:nth-child(3) { left: 50%; animation-delay: 2s; color: #4CAF50; }
+.particle:nth-child(4) { left: 65%; animation-delay: 0.5s; color: #CDDC39; font-size: 0.6rem; }
+.particle:nth-child(5) { left: 80%; animation-delay: 1.5s; color: #8BC34A; }
+.particle:nth-child(6) { left: 90%; animation-delay: 3s; color: #D4A574; font-size: 0.6rem; }
+
+/* ============================================
+   ANIMATIONS KEYFRAMES
+   ============================================ */
+
+@keyframes fillRing {
+  0% { stroke-dashoffset: 283; }
+  100% { stroke-dashoffset: 0; }
+}
+
+@keyframes showGradient {
+  0% { opacity: 0; }
+  20% { opacity: 1; }
+  100% { opacity: 1; }
+}
+
+@keyframes ringPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.02); }
+}
+
+@keyframes mascotBreathe {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+@keyframes dotWave {
+  0%, 100% { 
+    transform: translateY(0) scale(1); 
+    opacity: 0.6;
+  }
+  50% { 
+    transform: translateY(-10px) scale(1.2); 
+    opacity: 1;
+    background: linear-gradient(135deg, #8BC34A, #CDDC39);
+  }
+}
+
+@keyframes loadingDots {
+  0% { content: ''; }
+  25% { content: '.'; }
+  50% { content: '..'; }
+  75% { content: '...'; }
+  100% { content: ''; }
+}
+
+@keyframes floatUp {
+  0% {
+    transform: translateY(100vh) rotate(0deg);
+    opacity: 0;
+  }
+  10% { opacity: 0.5; }
+  90% { opacity: 0.5; }
+  100% {
+    transform: translateY(-20vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+/* ============================================
+   RÉDUCTION DE MOUVEMENT
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  .loader {
+    transition: none;
+  }
+  
+  .ring-progress {
+    animation: none;
+    stroke-dashoffset: 0;
+  }
+  
+  .loader-ring::before {
+    opacity: 1;
+    animation: none;
+  }
+  
+  .dot, .loader-mascot, .particle {
+    animation: none;
+  }
+  
+  .loader-text::after {
+    animation: none;
+    content: '...';
+  }
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+
+@media (max-width: 480px) {
+  .loader-ring {
+    width: 140px;
+    height: 140px;
+  }
+  
+  .loader-mascot {
+    width: 80px;
+    height: 80px;
+  }
+  
+  .loader-counter {
+    font-size: 1.25rem;
+  }
+  
+  .dot {
+    width: 10px;
+    height: 10px;
+  }
+}
+/* ============================================
+   ANNEAU SVG - Animation lente sur 10s
+   ============================================ */
+
+.ring-progress {
+  fill: none;
+  stroke: url(#gradientRing);
+  stroke-width: 4;
+  stroke-linecap: round;
+  stroke-dasharray: 283;
+  stroke-dashoffset: 283;
+  /* Animation lente: exactement 10 secondes */
+  animation: fillRing 10s linear forwards;
+}
+
+@keyframes fillRing {
+  0% { stroke-dashoffset: 283; }
+  100% { stroke-dashoffset: 0; }
+}
+
+/* ============================================
+   AUTRES ANIMATIONS - Ralenties pour 10s
+   ============================================ */
+
+/* Points de chargement - plus lent */
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #4CAF50, #8BC34A);
+  animation: dotWave 2s ease-in-out infinite; /* ralenti */
+  box-shadow: 0 4px 10px rgba(76, 175, 80, 0.3);
+}
+
+/* Particules - plus lentes */
+.particle {
+  position: absolute;
+  font-size: 1rem;
+  opacity: 0;
+  animation: floatUp 12s linear infinite; /* ralenti */
+}
+</style>
+<script>
+// ============================================
+// LOADER 10S MINIMUM - Compteur lent et fluide
+// ============================================
+
+(function() {
+  'use strict';
+  
+  const LOADER_DURATION = 10000; // 10 secondes minimum garanties
+  const UPDATE_INTERVAL = 100;   // mise à jour toutes les 100ms (plus fluide)
+  
+  let startTime = Date.now();
+  let progressInterval;
+  let isFinished = false;
+  
+  const loader = document.getElementById('loader');
+  const progressEl = document.getElementById('progressPercent');
+  
+  if (!loader) return;
+  
+  // Bloquer le scroll
+  document.body.style.overflow = 'hidden';
+  
+  // ==========================================
+  // Animation du compteur LENTE sur 10s
+  // ==========================================
+  const animateProgress = () => {
+    const elapsed = Date.now() - startTime;
+    
+    // Calcul progressif: 0% → 100% sur exactement 10s
+    let progress = Math.floor((elapsed / LOADER_DURATION) * 100);
+    
+    // Cap à 100%
+    progress = Math.min(100, progress);
+    
+    // Afficher
+    if (progressEl) {
+      progressEl.textContent = progress;
+    }
+    
+    // Arrêter quand on atteint 100%
+    if (progress >= 100 && !isFinished) {
+      clearInterval(progressInterval);
+      isFinished = true;
+      finishLoader();
+    }
+  };
+  
+  // Démarrer l'animation du compteur
+  progressInterval = setInterval(animateProgress, UPDATE_INTERVAL);
+  
+  // ==========================================
+  // Fin du loader (après 10s minimum)
+  // ==========================================
+  const finishLoader = () => {
+    // Pause de 500ms à 100% pour que l'utilisateur voie
+    setTimeout(() => {
+      loader.classList.add('hidden');
+      document.body.style.overflow = '';
+      
+      // Supprimer du DOM après transition
+      setTimeout(() => {
+        if (loader.parentNode) {
+          loader.parentNode.removeChild(loader);
+        }
+        window.dispatchEvent(new CustomEvent('loaderComplete'));
+      }, 1800);
+      
+    }, 1000); // 500ms de pause à 100%
+  };
+  
+  // ==========================================
+  // GARANTIE: 10s minimum
+  // ==========================================
+  
+  // Méthode 1: setTimeout strict
+  setTimeout(() => {
+    if (!isFinished) {
+      clearInterval(progressInterval);
+      if (progressEl) progressEl.textContent = '100';
+      isFinished = true;
+      finishLoader();
+    }
+  }, LOADER_DURATION + 1200); // +200ms marge
+  
+  // Méthode 2: Backup sécurité
+  const safetyCheck = setInterval(() => {
+    const elapsed = Date.now() - startTime;
+    if (elapsed >= LOADER_DURATION + 2000 && !isFinished) {
+      clearInterval(progressInterval);
+      clearInterval(safetyCheck);
+      if (progressEl) progressEl.textContent = '100';
+      isFinished = true;
+      finishLoader();
+    }
+  }, 2000);
+  
+  // ==========================================
+  // Gestion erreur image
+  // ==========================================
+  const mascotImg = loader.querySelector('.loader-mascot img');
+  if (mascotImg) {
+    mascotImg.onerror = function() {
+      this.style.display = 'none';
+      const fallback = document.createElement('div');
+      fallback.innerHTML = '🌱';
+      fallback.style.cssText = 'font-size: 4rem; animation: mascotBreathe 2s ease-in-out infinite;';
+      this.parentNode.appendChild(fallback);
+    };
+  }
+  
+})();
+// TEMPORAIRE: Vérifier la durée
+const debugStart = Date.now();
+window.addEventListener('loaderComplete', () => {
+  const duration = Date.now() - debugStart;
+  console.log('Loader a duré:', duration + 'ms', '(objectif: 5000ms)');
+});
+</script>
   <!-- Skip link (Accessibilité) -->
   <a href="#main-content" class="skip-link">Aller au contenu principal</a>
 
@@ -1876,7 +2384,7 @@
       
       <!-- Navigation Desktop -->
       <nav class="nav-desktop" role="navigation" aria-label="Navigation principale">
-        <a href="#top" class="nav-link active">Accueil</a>
+        <a href="../index.html" class="nav-link active">Accueil</a>
         <div class="nav-dropdown">
           <button class="nav-link" aria-expanded="false" aria-haspopup="true">
             Nos Services <i class="fas fa-chevron-down" aria-hidden="true"></i>
@@ -1909,7 +2417,7 @@
     
     <!-- Navigation Mobile (hors flux pour animation) -->
     <nav class="nav-mobile" id="mobileNav" role="navigation" aria-label="Navigation mobile">
-      <a href="#top">Accueil</a>
+      <a href="../index.html">Accueil</a>
       <div class="mobile-dropdown">
           <button class="mobile-dropdown-toggle">Nos Services <i class="fas fa-chevron-down"></i></button>
 
@@ -3093,7 +3601,7 @@ setTimeout(() => {
           <li><a href="faq.html">FAQ</a></li>
           <li><a href="chiffres.html">Nos chiffres</a></li>
           <li><a href="#meetings">Nos Activités</a></li>
-          <li><a href="#top">Accueil</a></li>
+          <li><a href="../index.html">Accueil</a></li>
         </ul>
       </div>
     </div>
