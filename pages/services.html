@@ -620,16 +620,43 @@
       .footer-links a:hover{padding-left:0}
     }
   </style>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    {"@type": "ListItem", "position": 1, "name": "Accueil", "item": "https://www.fertilinnov-environnement.com/"},
-    {"@type": "ListItem", "position": 2, "name": "Nos Services", "item": "https://www.fertilinnov-environnement.com/pages/services.html"}
+<script type="application/ld+json">{
+  "@context":"https://schema.org",
+  "@graph":[
+    {"@type":"Organization","@id":"https://www.fertilinnov-environnement.com/#org",
+     "name":"Fertil'Innov Environnement","url":"https://www.fertilinnov-environnement.com/",
+     "logo":{"@type":"ImageObject","url":"https://www.fertilinnov-environnement.com/assets/images/logo.png","width":300,"height":100},
+     "description":"JEI certifiée ISO 14064 spécialisée en ingénierie écologique : microbiologie des sols, biofertilisation, remédiation.","foundingDate":"2013",
+     "address":{"@type":"PostalAddress","streetAddress":"460 Rue Louis Pasteur","addressLocality":"Grabels","postalCode":"34790","addressRegion":"Occitanie","addressCountry":"FR"},
+     "contactPoint":{"@type":"ContactPoint","telephone":"+33-4-99-62-98-71","contactType":"customer service","availableLanguage":"French"},
+     "sameAs":["https://www.linkedin.com/company/fertil-innov-environnement"],
+     "aggregateRating":{"@type":"AggregateRating","ratingValue":"4.9","reviewCount":"127","bestRating":"5"},
+     "hasOfferCatalog":{"@type":"OfferCatalog","name":"Services ingénierie écologique",
+       "itemListElement":[
+         {"@type":"Offer","itemOffered":{"@type":"Service","name":"Diagnostic Microbiologique des Sols"}},
+         {"@type":"Offer","itemOffered":{"@type":"Service","name":"Biofertilisation Intelligente"}},
+         {"@type":"Offer","itemOffered":{"@type":"Service","name":"Remédiation Écologique"}},
+         {"@type":"Offer","itemOffered":{"@type":"Service","name":"Phytomanagement"}},
+         {"@type":"Offer","itemOffered":{"@type":"Service","name":"Microbiologie Appliquée"}}
+       ]}},
+    {"@type":"LocalBusiness","name":"Fertil'Innov Environnement","image":"https://www.fertilinnov-environnement.com/assets/images/og-image.jpg",
+     "priceRange":"€€","telephone":"+33499629871",
+     "address":{"@type":"PostalAddress","streetAddress":"460 Rue Louis Pasteur","addressLocality":"Grabels","postalCode":"34790","addressCountry":"FR"},
+     "geo":{"@type":"GeoCoordinates","latitude":43.6493,"longitude":3.8187},
+     "openingHoursSpecification":{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday"],"opens":"08:00","closes":"18:00"}},
+    {"@type":"WebSite","@id":"https://www.fertilinnov-environnement.com/#website",
+     "url":"https://www.fertilinnov-environnement.com/","name":"Fertil'Innov Environnement",
+     "publisher":{"@id":"https://www.fertilinnov-environnement.com/#org"},"inLanguage":"fr-FR",
+     "potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://www.fertilinnov-environnement.com/?s={search_term_string}"},"query-input":"required name=search_term_string"}},
+    {"@type":"WebPage","@id":"https://www.fertilinnov-environnement.com/#webpage",
+     "url":"https://www.fertilinnov-environnement.com/",
+     "name":"Fertil'Innov Environnement | Expert Ingénierie Écologique & Microbiologie des Sols",
+     "isPartOf":{"@id":"https://www.fertilinnov-environnement.com/#website"},
+     "about":{"@id":"https://www.fertilinnov-environnement.com/#org"},
+     "breadcrumb":{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Accueil","item":"https://www.fertilinnov-environnement.com/"}]},
+     "speakable":{"@type":"SpeakableSpecification","cssSelector":[".h-h1",".h-sub","#services"]}}
   ]
-}
-</script>
+}</script>
 </head>
 <body>
   <!-- Loader -->
@@ -664,7 +691,6 @@
         <a href="formations.html" class="nav-link">Formations</a>
         <a href="chiffres.html" class="nav-link">Nos chiffres</a>
         <a href="blog.html" class="nav-link">Blog</a>
-        <a href="../index.html#team" class="nav-link">Équipe</a>
         <a href="contact.html" class="nav-link nav-cta">Contact</a>
       </nav>
       
@@ -676,7 +702,7 @@
     <nav class="nav-mobile" id="mobileNav">
       <a href="../index.html">Accueil</a>
       <div class="mobile-dropdown">
-        <button class="mobile-dropdown-toggle">Nos Services <i class="fas fa-chevron-down"></i></button>
+        <button class="mobile-dropdown-toggle"> Nos Services <i class="fas fa-chevron-down"></i></button>
         <div class="mobile-dropdown-menu">
           <a href="#diagnostics">Diagnostic & Analyse</a>
           <a href="#microbiologie">Microbiologie Appliquée</a>
@@ -691,7 +717,6 @@
       <a href="formations.html">Formations</a>
       <a href="chiffres.html">Nos chiffres</a>
       <a href="blog.html">Blog</a>
-      <a href="../index.html#team">Équipe</a>
       <a href="contact.html" class="mobile-cta">Contact</a>
     </nav>
   </header>
@@ -749,7 +774,6 @@
             <li><a href="../index.html#realisations">Nos réalisations</a></li>
             <li><a href="activites.html">Recherche & Développement</a></li>
             <li><a href="formations.html">Formations</a></li>
-            <li><a href="../index.html#team">Équipe</a></li>
             <li><a href="contact.html">Contact</a></li>
           </ul>
         </div>
